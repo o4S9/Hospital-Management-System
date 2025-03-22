@@ -887,7 +887,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String query,did,dname,age,gender,gender1,email,pass,quli,spe;
+        String query,did,dname,age,gender,gender1,email,pass,quli,spe,lspo,sch;
         did =D1.getText();
         dname = D2.getText();
         age = D3.getText();
@@ -897,7 +897,9 @@ public class Admin extends javax.swing.JFrame {
         pass = P1.getText();
         gender = R1.getText();
         gender1 = R2.getText();
-
+        lspo = D7.getText();
+        sch = D.getText();
+        
         Doctor d = new Doctor();
 
         try{
@@ -967,6 +969,32 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+         String D_id;
+        D_id = D1.getText();
+         try{
+       Connection cn = null;
+       Statement st = null;
+       Class.forName("com.mysql.cj.jdbc.Driver");
+       cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hms","root","o4n9k3a9r1");
+       st = cn.createStatement();
+       
+       
+         
+        if(D_id.equals("")){
+        JOptionPane.showMessageDialog(rootPane, "Please enter your id required and delete");
+        }else{
+          String  query = "DELETE FROM doctor WHERE `D_id`='"+D_id+"'";
+              st.executeUpdate(query);
+              cn.close();
+                      JOptionPane.showMessageDialog(rootPane, "Your data was delete!");
+                     
+
+               //System.out.println("Databse Connected!"+query);
+        }
+          }catch(Exception ex){
+             System.out.println("Error"+ex.getMessage());
+
+     }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1014,8 +1042,9 @@ public class Admin extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Please enter Patient-ID");
         }else{
         String  mob = TF.getText();    
-        ShowBill bill = new ShowBill(mob);
-        bill.setVisible(true);
+        //ShowBill bill = new ShowBill(mob);
+        Patient_record pr = new Patient_record(mob);
+        pr.setVisible(true);
         
         }
     }//GEN-LAST:event_jButton7ActionPerformed
